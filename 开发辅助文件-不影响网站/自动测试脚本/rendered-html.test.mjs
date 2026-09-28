@@ -1,3 +1,9 @@
+/*
+ * 【文件作用】构建产物 HTML 渲染测试（开发辅助，与网站上线无关）
+ * ⚠️ 本脚本是项目最初脚手架留下的，测试的是「模板自带的加载骨架屏」，
+ *    里面引用的 ../dist/server/index.js 在当前仓库并不存在，因此现在跑不通。
+ *    保留仅作历史参考。
+ */
 import assert from "node:assert/strict";
 import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
@@ -51,8 +57,8 @@ test("keeps the loading skeleton scoped and disposable", async () => {
   const [preview, css, page, layout, packageJson, files] = await Promise.all([
     readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
     readFile(new URL("preview.css", previewRoot), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../../网站源码/全部页面代码.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../没被使用的代码/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
     readdir(previewRoot),
   ]);

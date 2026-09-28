@@ -6,12 +6,12 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "vite --config vite.pages.config.ts",
-    "build:pages": "vite build --config vite.pages.config.ts",
-    "preview": "vite preview --config vite.pages.config.ts",
-    "test": "node --test _dev-only/tests/rendered-html.test.mjs",
-    "lint": "eslint . --config _dev-only/eslint.config.mjs --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate --config _dev-only/drizzle.config.ts"
+    "dev": "vite --config 打包发布配置.ts",
+    "build:pages": "vite build --config 打包发布配置.ts",
+    "preview": "vite preview --config 打包发布配置.ts",
+    "test": "node --test 开发辅助文件-不影响网站/自动测试脚本/rendered-html.test.mjs",
+    "lint": "eslint . --config 开发辅助文件-不影响网站/代码检查规则/eslint.config.mjs --ignore-pattern dist --ignore-pattern .next",
+    "db:generate": "drizzle-kit generate --config 开发辅助文件-不影响网站/数据库相关-网站用不到/drizzle.config.ts"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",
