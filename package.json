@@ -6,6 +6,7 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "start": "vite preview --config 打包发布配置.ts",
     "dev": "vite --config 打包发布配置.ts",
     "build:pages": "vite build --config 打包发布配置.ts",
     "preview": "vite preview --config 打包发布配置.ts",
