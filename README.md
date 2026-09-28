@@ -18,7 +18,6 @@
 |---|---|
 | `app/page.tsx` | **网站全部页面代码**（首页 / 查找 / 认识 / 使用说明 / 健康生活 五个模块都在这一个文件里） |
 | `app/globals.css` | 全站样式（Tailwind 4） |
-| `app/layout.tsx` | HTML 外壳（标题、描述、字体） |
 | `github-pages/` | **发布入口**（`index.html` + `main.tsx`），上线就从这两个文件开始打包 |
 | `vite.pages.config.ts` | **发布构建配置**，`npm run build:pages` 读的就是它 |
 | `postcss.config.mjs` | 样式编译配置，构建必需，**别挪走** |
@@ -26,11 +25,16 @@
 | `package.json` / `package-lock.json` | 依赖清单与命令脚本 |
 | `README.md` | 本文件 |
 
+> 上面这份清单不是凭感觉列的：实际构建链路是
+> `github-pages/index.html` → `main.tsx` → `app/page.tsx` + `app/globals.css`，
+> 其余都是构建工具读的配置。挪动任何**不在**这个链条里的文件，都不会影响线上网站。
+
 ### 📦 `_dev-only/` —— 开发辅助（动了也不影响网站上线）
 
 | 目录 / 文件 | 是什么 | 为什么不影响网站 |
 |---|---|---|
 | `openai/` | OpenAI Codex 生成工具的托管配置 | 只是元数据，网站不读它 |
+| `layout.tsx` | 网站标题与分享卡片元数据定义 | **实测**：挪走后重建，产物一字节不差（详见下方注意事项） |
 | `examples/` | 数据库示例代码 | 纯示例，没有任何地方引用 |
 | `tests/` | 自动化测试脚本 | 只在本地 `npm test` 时用到 |
 | `db/` + `drizzle.config.ts` + `drizzle/` | 数据库结构定义与迁移 | 网站是纯静态页，**不用数据库** |
@@ -59,6 +63,11 @@ npm run preview      # 本地预览构建结果
 
 - **图片素材不在本仓库**，托管在外部地址 `aed-platform.well-scout-7253.chatgpt.site`，
   这个域名一旦失效全站图片都会挂。
+- **分享卡片目前是"裸"的**：`_dev-only/layout.tsx` 里其实写好了完整的
+  Open Graph / Twitter 元数据（含 1200×630 分享图 `/og.png`），但线上发布入口
+  `github-pages/index.html` 里没有对应标签，所以这些内容一个字都没生效——
+  把网站链接分享到微信、QQ 时不会出现标题图。想修的话，把那段元数据挪进
+  `github-pages/index.html` 的 `<head>` 即可。
 - 「健康生活」页的 3 张图片（`health-smoke` / `health-diet` / `health-move`）当前加载失败，页面上是空白卡片。
 - AED 点位数据在另一个仓库：`2913800552/aed-map`。
 - 想本地起 Cloudflare/Worker 开发环境的话，需要把 `_dev-only/` 里的 `vite.config.ts`、`next.config.ts`

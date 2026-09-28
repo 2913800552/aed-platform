@@ -7,6 +7,7 @@
 | 文件 / 目录 | 说明 |
 |---|---|
 | `openai/hosting.json` | OpenAI Codex 生成工具留下的托管配置（project_id 等） |
+| `layout.tsx` | 网站标题 / 描述 / 分享卡片元数据。**实测不进构建**——线上发布入口是 `github-pages/index.html`，不走 Next.js 的 layout。想让分享卡片生效，把里面的 openGraph 段挪进 `github-pages/index.html` 的 `<head>` |
 | `chatgpt-auth.ts` | Codex 生成的 ChatGPT 登录辅助代码，全仓库无引用，属死代码 |
 | `examples/d1/` | Cloudflare D1 数据库示例路由 |
 | `db/` | Drizzle 数据库 schema 定义 |
